@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/erp-backend/erp-backend.iml" filepath="$PROJECT_DIR$/erp-backend/erp-backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/zylo-prod.iml" filepath="$PROJECT_DIR$/.idea/zylo-prod.iml" />
     </modules>
   </component>
 </project>

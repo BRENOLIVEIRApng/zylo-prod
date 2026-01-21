@@ -30,7 +30,7 @@ public class Perfil {
 
     @Column(name = "sistema", nullable = false)
     @Builder.Default
-    private Boolean sistema;
+    private Boolean sistema = false;
 
     @Column(name = "criado_em", nullable = false, updatable = false)
     private LocalDateTime criadoEm;
