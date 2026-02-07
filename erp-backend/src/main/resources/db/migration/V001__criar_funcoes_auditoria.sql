@@ -8,7 +8,7 @@
 -- =====================================================
 -- EXTENSION PARA UUID (CASO PRECISE NO FUTURO)
 -- =====================================================
-CREATE EXTENSION IF NOT EXISTS "UUID-OSSP";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- =====================================================
 -- FUNÇÃO: ATUALIZAR TIMESTAMP DE ATUALIZAÇÃO AUTOMATICAMENTE

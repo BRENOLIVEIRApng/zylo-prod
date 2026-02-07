@@ -2,7 +2,6 @@ package com.zyloerp.modules.cliente.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.repository.cdi.Eager;
 
 @Entity
 @Table(name = "contatos_cliente")

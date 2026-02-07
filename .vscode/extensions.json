@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "vscjava.vscode-java-pack",
+    "vmware.vscode-spring-boot",
+    "gabrielbb.vscode-lombok",
+    "ms-azuretools.vscode-docker",
+    "humao.rest-client",
+    "eamodio.gitlens",
+    "sonarsource.sonarlint-vscode"
+  ]
+}
