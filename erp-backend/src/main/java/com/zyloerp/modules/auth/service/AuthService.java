@@ -3,10 +3,10 @@ package com.zyloerp.modules.auth.service;
 import com.zyloerp.core.security.JwtTokenProvider;
 import com.zyloerp.modules.auth.dto.LoginRequest;
 import com.zyloerp.modules.auth.dto.LoginResponse;
-import com.zyloerp.modules.auth.model.HistoricoAcesso;
-import com.zyloerp.modules.auth.model.Usuario;
-import com.zyloerp.modules.auth.repository.HistoricoAcessoRepository;
-import com.zyloerp.modules.usuario.dto.UsuarioDTO;
+import com.zyloerp.modules.usuario.model.HistoricoAcesso;
+import com.zyloerp.modules.usuario.model.Usuario;
+import com.zyloerp.modules.usuario.repository.HistoricoAcessoRepository;
+import com.zyloerp.modules.usuario.dto.UsuarioRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +44,7 @@ public class AuthService {
                 .token(token)
                 .tipo("Bearer")
                 .expiresIn(28800000L)
-                .usuario(UsuarioDTO.builder()
+                .usuario(UsuarioRequestDTO.builder()
                         .codigoUsuario(usuario.getCodigoUsuario())
                         .nomeCompleto(usuario.getNomeCompleto())
                         .email(usuario.getEmail())

@@ -1,7 +1,7 @@
 package com.zyloerp.core.security;
 
-import com.zyloerp.modules.auth.model.Usuario;
-import com.zyloerp.modules.auth.repository.UsuarioRepository;
+import com.zyloerp.modules.usuario.model.Usuario;
+import com.zyloerp.modules.usuario.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

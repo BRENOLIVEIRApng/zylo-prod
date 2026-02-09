@@ -1,4 +1,4 @@
-package com.zyloerp.modules.auth.model;
+package com.zyloerp.modules.usuario.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

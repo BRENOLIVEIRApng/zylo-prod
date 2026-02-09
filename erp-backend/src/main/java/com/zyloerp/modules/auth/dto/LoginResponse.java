@@ -1,6 +1,6 @@
 package com.zyloerp.modules.auth.dto;
 
-import com.zyloerp.modules.usuario.dto.UsuarioDTO;
+import com.zyloerp.modules.usuario.dto.UsuarioRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +15,5 @@ public class LoginResponse {
     private String token;
     private String tipo;
     private Long expiresIn;
-    private UsuarioDTO usuario;
+    private UsuarioRequestDTO usuario;
 }

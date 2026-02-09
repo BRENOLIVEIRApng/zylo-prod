@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioDTO {
+public class UsuarioRequestDTO {
 
     private Long codigoUsuario;
     private String nomeCompleto;

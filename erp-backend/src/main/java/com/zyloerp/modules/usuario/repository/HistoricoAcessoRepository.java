@@ -1,6 +1,6 @@
-package com.zyloerp.modules.auth.repository;
+package com.zyloerp.modules.usuario.repository;
 
-import com.zyloerp.modules.auth.model.HistoricoAcesso;
+import com.zyloerp.modules.usuario.model.HistoricoAcesso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
