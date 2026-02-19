@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DiffGenerationConfig">
+    <option name="snapshotDbValue" value="d7a7ec5b-d7ad-4409-afa8-4b83b3e1e403" />
     <option name="sourceDbValue" value="3b8f7832-4b14-4c26-b619-7f698c8223eb" />
     <option name="sourceModelValue" value="erp-backend:erp-backend" />
     <option name="targetDbValue" value="3b8f7832-4b14-4c26-b619-7f698c8223eb__erp_portal_public" />

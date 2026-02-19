@@ -3,5 +3,8 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/erp-backend/src/main/resources/db/migration/V001__criar_funcoes_auditoria.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/erp-backend/src/main/resources/db/migration/V002__criar_tabelas_usuarios.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/erp-backend/src/main/resources/db/migration/V007__indices_otimizacoes.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/erp-backend/src/main/resources/db/migration/V008__popular_tabelas.sql" dialect="PostgreSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>

@@ -3,6 +3,9 @@ package com.zyloerp.modules.usuario.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(
         name = "PERMISSOES",
@@ -31,6 +34,9 @@ public class Permissao {
 
     @Column(name = "DESCRICAO_PERMISSAO", columnDefinition = "TEXT")
     private String descricaoPermissao;
+
+    @ManyToMany(mappedBy = "permissoes")
+    private Set<Perfil> perfils;
 
     public String getAuthority() {
         return this.modulo + ":" + this.acao;
