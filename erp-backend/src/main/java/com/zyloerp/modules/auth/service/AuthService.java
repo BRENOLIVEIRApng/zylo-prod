@@ -3,22 +3,25 @@ package com.zyloerp.modules.auth.service;
 import com.zyloerp.core.security.JwtTokenProvider;
 import com.zyloerp.modules.auth.dto.LoginRequest;
 import com.zyloerp.modules.auth.dto.LoginResponse;
+import com.zyloerp.modules.usuario.dto.UsuarioResponseDTO;
 import com.zyloerp.modules.usuario.model.HistoricoAcesso;
 import com.zyloerp.modules.usuario.model.Usuario;
 import com.zyloerp.modules.usuario.repository.HistoricoAcessoRepository;
 import com.zyloerp.modules.usuario.repository.UsuarioRepository;
-import com.zyloerp.modules.usuario.dto.UsuarioResponseDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -26,14 +29,14 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final HistoricoAcessoRepository historicoAcessoRepository;
-    private final UsuarioRepository usuarioRepository; // necessário para persistir ultimoAcesso
+    private final UsuarioRepository usuarioRepository;
 
     @Transactional
     public LoginResponse login(LoginRequest request, String ip, String userAgent) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            request.getEmail(),
+                            request.getEmail().toLowerCase().trim(),
                             request.getSenha()
                     )
             );
@@ -44,32 +47,35 @@ public class AuthService {
 
             String token = jwtTokenProvider.generateToken(authentication);
 
-            registrarAcessoSucesso(usuario, ip, userAgent);
+            registrarAcesso(usuario, ip, userAgent, true, null);
 
-            // Persiste o último acesso (sem save() anterior, isso nunca era salvo)
             usuario.setUltimoAcesso(LocalDateTime.now());
-            usuarioRepository.save(usuario);
+            usuarioRepository.save(usuario); // persiste ultimoAcesso
 
             return LoginResponse.builder()
                     .token(token)
                     .tipo("Bearer")
-                    .expiresIn(28800000L) // 8h em ms
+                    .expiresIn(28800000L)
                     .usuario(UsuarioResponseDTO.fromEntity(usuario))
                     .build();
 
-        } catch (BadCredentialsException e) {
-            // Não expõe se o email existe ou não — boa prática de segurança
+        } catch (AuthenticationException e) {
+            // Captura BadCredentialsException, InternalAuthenticationServiceException,
+            // DisabledException, LockedException — qualquer falha de autenticação
+            log.warn("Falha no login para email={} | motivo={}", request.getEmail(), e.getMessage());
             throw new BadCredentialsException("Email ou senha incorretos");
         }
     }
 
-    private void registrarAcessoSucesso(Usuario usuario, String ip, String userAgent) {
+    private void registrarAcesso(Usuario usuario, String ip, String userAgent,
+                                 boolean sucesso, String motivo) {
         HistoricoAcesso acesso = HistoricoAcesso.builder()
                 .usuario(usuario)
                 .ipAcesso(ip)
                 .userAgent(userAgent)
                 .dataHoraAcesso(LocalDateTime.now())
-                .sucesso(true)
+                .sucesso(sucesso)
+                .motivoFalha(motivo)
                 .build();
         historicoAcessoRepository.save(acesso);
     }

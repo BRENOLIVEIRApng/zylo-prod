@@ -45,9 +45,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByIdComPermissoes(@Param("codigoUsuario") Long codigoUsuario);
 
     /**
-     * Usada pelo UserDetailsService no login.
-     * JOIN FETCH perfil + permissoes resolve LazyInitializationException ao chamar getAuthorities().
-     * DISTINCT evita duplicatas causadas pelo JOIN com a coleção de permissoes.
+     * Usada apenas pelo UserDetailsService (login).
+     * DISTINCT + JOIN FETCH perfil + permissoes = uma query, sem LazyInitializationException.
      */
     @Query("SELECT DISTINCT u FROM Usuario u " +
             "LEFT JOIN FETCH u.perfil p " +
