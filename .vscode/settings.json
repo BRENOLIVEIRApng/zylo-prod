@@ -19,5 +19,16 @@
         "**/.settings": true,
         "**/.factorypath": true
     },
-    "spring-boot-dashboard.details.dashboard.open": true
+    "spring-boot-dashboard.details.dashboard.open": true,
+    "java.jdt.ls.vmargs": "-javaagent:pom.xml.relative.path/to/lombok.jar",
+    "maven.terminal.customEnv": [
+        {
+            "environmentVariable": "SPRING_PROFILES_ACTIVE",
+            "value": "docker"
+        },
+        {
+            "environmentVariable": "JWT_SECRET",
+            "value": "c2VncmVkb211aXRvc2VndXJvcGFyYWVzdHVkYXJqYXZhc3ByaW5nYm9vdA=="
+        }
+    ]
 }
