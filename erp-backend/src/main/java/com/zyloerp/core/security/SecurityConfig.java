@@ -46,6 +46,7 @@ public class SecurityConfig {
                                 "/api-docs/**",
                                 "/",
                                 "/index.html",
+                                "/reset-password.html",
                                 "/*.html",
                                 "/css/**",
                                 "/js/**",
