@@ -1,7 +1,6 @@
 package com.zyloerp.modules.cliente.model;
 
 import com.zyloerp.core.entity.BaseEntity;
-import com.zyloerp.modules.contrato.model.Contrato;
 import com.zyloerp.shared.enums.StatusCliente;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +22,7 @@ public class Cliente extends BaseEntity {
     @Column(name = "codigo_cliente")
     private Long codigoCliente;
 
+    // ─── Dados cadastrais ─────────────────────────────────────────────────────
     @Column(name = "razao_social", nullable = false, length = 200)
     private String razaoSocial;
 
@@ -35,6 +35,7 @@ public class Cliente extends BaseEntity {
     @Column(name = "inscricao_estadual", length = 20)
     private String inscricaoEstadual;
 
+    // ─── Endereço ─────────────────────────────────────────────────────────────
     @Column(name = "cep", length = 10)
     private String cep;
 
@@ -56,49 +57,47 @@ public class Cliente extends BaseEntity {
     @Column(name = "estado", length = 2)
     private String estado;
 
+    // ─── Status ───────────────────────────────────────────────────────────────
     @Enumerated(EnumType.STRING)
     @Column(name = "status_cliente", nullable = false, length = 20)
     @Builder.Default
     private StatusCliente statusCliente = StatusCliente.ATIVO;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    // ─── Relacionamentos ──────────────────────────────────────────────────────
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     private List<ContatoCliente> contatos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("dataHoraObservacao DESC")
     @Builder.Default
-    private List<Contrato> contratos = new ArrayList<>();
+    private List<ObservacaoCliente> observacoes = new ArrayList<>();
+
+    // ─── Business methods ─────────────────────────────────────────────────────
 
     public void adicionarContato(ContatoCliente contato) {
         contatos.add(contato);
         contato.setCliente(this);
     }
 
-    public void removerContato(ContatoCliente contato) {
-        contatos.remove(contato);
-        contato.setCliente(null);
+    public void adicionarObservacao(ObservacaoCliente observacao) {
+        observacoes.add(observacao);
+        observacao.setCliente(this);
     }
 
-    public ContatoCliente getContatoPrincipal() {
-        return contatos.stream()
-                .filter(ContatoCliente::getPrincipal)
-                .findFirst()
-                .orElse(null);
-    }
-
-    public boolean isSuspenso() {
-        return this.statusCliente == StatusCliente.SUSPENSO;
+    public boolean isAtivo() {
+        return StatusCliente.ATIVO.equals(this.statusCliente) && getExcluidoEm() == null;
     }
 
     public void suspender() {
         this.statusCliente = StatusCliente.SUSPENSO;
     }
 
-    public void reativar() {
-        this.statusCliente = StatusCliente.ATIVO;
-    }
-
     public void encerrar() {
         this.statusCliente = StatusCliente.ENCERRADO;
+    }
+
+    public void reativar() {
+        this.statusCliente = StatusCliente.ATIVO;
     }
 }

@@ -3,6 +3,8 @@ package com.zyloerp.modules.cliente.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "contatos_cliente")
 @Getter
@@ -14,37 +16,51 @@ public class ContatoCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CODIGO_CONTATO")
+    @Column(name = "codigo_contato")
     private Long codigoContato;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CODIGO_CLIENTE", nullable = false)
+    @JoinColumn(name = "codigo_cliente", nullable = false)
     private Cliente cliente;
 
-    @Column(name = "NOME_CONTATO", nullable = false, length = 100)
-    private String nome;
+    // A migration usa NOME_CONTATO
+    @Column(name = "nome_contato", nullable = false, length = 100)
+    private String nomeContato;
 
-    @Column(name = "EMAIL_CONTATO", length = 100)
-    private String emailContato;
+    @Column(name = "email", length = 100)
+    private String email;
 
-    @Column(name = "TELEFONE", length = 20)
+    @Column(name = "telefone", length = 20)
     private String telefone;
 
-    @Column(name = "CELULAR", length = 20)
+    @Column(name = "celular", length = 20)
     private String celular;
 
-    @Column(name = "CARGO", length = 100)
+    @Column(name = "cargo", length = 100)
     private String cargo;
 
-    @Column(name = "PRINCIPAL")
+    @Column(name = "principal", nullable = false)
     @Builder.Default
-    private boolean principal = false;
+    private Boolean principal = false;
 
-    @Column(name = "ATIVO", nullable = false)
+    @Column(name = "ativo", nullable = false)
     @Builder.Default
-    private boolean ativo = true;
+    private Boolean ativo = true;
 
-    public boolean getPrincipal(){
-        return false;
+    @Column(name = "criado_em", nullable = false, updatable = false)
+    private LocalDateTime criadoEm;
+
+    @Column(name = "atualizado_em")
+    private LocalDateTime atualizadoEm;
+
+    @PrePersist
+    protected void onCreate() {
+        this.criadoEm = LocalDateTime.now();
+        this.atualizadoEm = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.atualizadoEm = LocalDateTime.now();
     }
 }
