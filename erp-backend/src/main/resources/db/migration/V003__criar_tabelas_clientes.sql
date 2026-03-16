@@ -63,7 +63,7 @@ CREATE TABLE CLIENTES (
                               ),
 
                           CONSTRAINT CHK_CLIENTE_CNPJ_FORMATO CHECK (
-                              CNPJ ~ '^\D{2}\.\D{3}\.\D{3}/\D{4}-\D{2}$'  -- VALIDA FORMATO
+                              CNPJ ~ '^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$'  -- VALIDA FORMATO
 ),
 
     CONSTRAINT CHK_CLIENTE_RAZAO_SOCIAL_MINIMO CHECK (
@@ -125,7 +125,7 @@ CREATE TABLE CONTATOS_CLIENTE (
 
     -- DADOS DO CONTATO
                                   NOME_CONTATO            VARCHAR(100) NOT NULL,
-                                  EMAIL           VARCHAR(100),
+                                  EMAIL                   VARCHAR(100),
                                   TELEFONE                VARCHAR(20),
                                   CELULAR                 VARCHAR(20),
                                   CARGO                   VARCHAR(100),
