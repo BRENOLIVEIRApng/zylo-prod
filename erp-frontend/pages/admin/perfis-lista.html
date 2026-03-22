@@ -7,8 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/layout.css">
     <style>
-        /* ── Perfis list ──────────────────────────────────────────────────────── */
+        /* ── Perfis list ───────────────────────────────────────────────────────── */
         .perfil-card {
           background: var(--bg-card);
           border: 1.5px solid var(--border-light);
@@ -18,179 +19,71 @@
           transition: all var(--transition);
           position: relative;
         }
-        .perfil-card:hover {
-          border-color: var(--mint);
-          box-shadow: 0 4px 16px rgba(0,255,194,.10);
-          transform: translateY(-1px);
-        }
-        .perfil-card.selected {
-          border-color: var(--mint);
-          background: var(--mint-dim);
-          box-shadow: 0 0 0 3px rgba(0,255,194,.15);
-        }
-        .perfil-card.sistema .perfil-badge-sistema {
-          display: inline-flex;
-        }
+        .perfil-card:hover { border-color: var(--mint); box-shadow: 0 4px 16px rgba(0,184,148,.10); transform: translateY(-1px); }
+        .perfil-card.selected { border-color: var(--mint); background: var(--mint-dim); box-shadow: 0 0 0 3px rgba(0,184,148,.15); }
+        .perfil-card.sistema .perfil-badge-sistema { display: inline-flex; }
         .perfil-badge-sistema {
-          display: none;
-          align-items: center;
-          gap: .25rem;
-          font-size: .65rem;
-          font-weight: 700;
-          letter-spacing: .5px;
-          text-transform: uppercase;
-          background: rgba(45,52,54,.08);
-          color: var(--carbon-muted);
-          border: 1px solid rgba(45,52,54,.12);
-          padding: .15rem .55rem;
-          border-radius: 20px;
+          display: none; align-items: center; gap: .25rem;
+          font-size: .65rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+          background: rgba(45,52,54,.08); color: var(--carbon-muted);
+          border: 1px solid rgba(45,52,54,.12); padding: .15rem .55rem; border-radius: 20px;
         }
-        .perfil-nome {
-          font-size: .9375rem;
-          font-weight: 700;
-          color: var(--text-primary);
-          letter-spacing: -.2px;
-          margin-bottom: .2rem;
-        }
-        .perfil-desc {
-          font-size: .8rem;
-          color: var(--text-muted);
-          line-height: 1.4;
-          min-height: 1.2em;
-        }
-        .perfil-meta {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-top: .9rem;
-          padding-top: .75rem;
-          border-top: 1px solid var(--border-light);
-        }
-        .perfil-perm-count {
-          font-size: .75rem;
-          color: var(--text-secondary);
-          display: flex;
-          align-items: center;
-          gap: .3rem;
-        }
+        .perfil-nome  { font-size: .9375rem; font-weight: 700; color: var(--text-primary); letter-spacing: -.2px; margin-bottom: .2rem; }
+        .perfil-desc  { font-size: .8rem; color: var(--text-muted); line-height: 1.4; min-height: 1.2em; }
+        .perfil-meta  { display: flex; align-items: center; justify-content: space-between; margin-top: .9rem; padding-top: .75rem; border-top: 1px solid var(--border-light); }
+        .perfil-perm-count { font-size: .75rem; color: var(--text-secondary); display: flex; align-items: center; gap: .3rem; }
         .perfil-perm-count i { color: var(--mint-dark); }
         .perfil-actions { display: flex; gap: .35rem; opacity: 0; transition: opacity var(--transition); }
         .perfil-card:hover .perfil-actions,
         .perfil-card.selected .perfil-actions { opacity: 1; }
 
-        /* ── Painel de permissões ─────────────────────────────────────────────── */
-        .perm-panel {
-          background: var(--bg-card);
-          border: 1.5px solid var(--border-light);
-          border-radius: var(--radius-md);
-          position: sticky;
-          top: calc(var(--topbar-h) + 1.75rem);
-        }
-        .perm-panel-header {
-          padding: 1.25rem 1.5rem;
-          border-bottom: 1px solid var(--border-light);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        .perm-panel-body { padding: 1rem 1.5rem 1.5rem; }
-        .perm-panel-empty {
-          padding: 3rem 1.5rem;
-          text-align: center;
-          color: var(--text-muted);
-          font-size: .875rem;
-        }
+        /* ── Painel de permissões ──────────────────────────────────────────────── */
+        .perm-panel { background: var(--bg-card); border: 1.5px solid var(--border-light); border-radius: var(--radius-md); position: sticky; top: calc(var(--topbar-h) + 1.75rem); }
+        .perm-panel-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; }
+        .perm-panel-body   { padding: 1rem 1.5rem 1.5rem; }
+        .perm-panel-empty  { padding: 3rem 1.5rem; text-align: center; color: var(--text-muted); font-size: .875rem; }
         .perm-panel-empty i { font-size: 2rem; display: block; margin-bottom: .75rem; opacity: .4; }
 
-        /* ── Matriz de permissões ─────────────────────────────────────────────── */
-        .perm-modulo-group { margin-bottom: 1rem; }
-        .perm-modulo-header {
-          display: flex;
-          align-items: center;
-          gap: .5rem;
-          padding: .5rem .75rem;
-          background: var(--bg-body);
-          border-radius: var(--radius-sm);
-          margin-bottom: .5rem;
-        }
+        /* ── Matriz de permissões ──────────────────────────────────────────────── */
+        .perm-modulo-group   { margin-bottom: 1rem; }
+        .perm-modulo-header  { display: flex; align-items: center; gap: .5rem; padding: .5rem .75rem; background: var(--bg-body); border-radius: var(--radius-sm); margin-bottom: .5rem; }
         .perm-modulo-header i { font-size: .9rem; color: var(--mint-dark); }
-        .perm-modulo-nome {
-          font-size: .78rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: .5px;
-          color: var(--text-secondary);
-          flex: 1;
-        }
-        .perm-modulo-toggle {
-          font-size: .7rem;
-          color: var(--text-muted);
-          cursor: pointer;
-          transition: color var(--transition);
-          user-select: none;
-        }
+        .perm-modulo-nome    { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text-secondary); flex: 1; }
+        .perm-modulo-toggle  { font-size: .7rem; color: var(--text-muted); cursor: pointer; transition: color var(--transition); user-select: none; }
         .perm-modulo-toggle:hover { color: var(--mint-dark); }
 
-        .perm-acoes-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: .35rem;
-          padding: 0 .25rem;
-        }
+        .perm-acoes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; padding: 0 .25rem; }
 
         .perm-toggle {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: .3rem;
-          padding: .6rem .4rem;
-          border: 1.5px solid var(--border-light);
-          border-radius: var(--radius-sm);
-          cursor: pointer;
-          transition: all var(--transition);
-          background: var(--bg-body);
-          user-select: none;
+          display: flex; flex-direction: column; align-items: center; gap: .3rem;
+          padding: .6rem .4rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-sm);
+          cursor: pointer; transition: all var(--transition); background: var(--bg-body); user-select: none;
         }
         .perm-toggle:hover { border-color: var(--mint); background: var(--mint-dim); }
-        .perm-toggle.ativo {
-          background: rgba(0,255,194,.12);
-          border-color: var(--mint);
-        }
-        .perm-toggle.ativo .perm-toggle-icon { color: var(--mint-dark); }
+        .perm-toggle.ativo  { background: rgba(0,184,148,.12); border-color: var(--mint); }
+        .perm-toggle.ativo .perm-toggle-icon  { color: var(--mint-dark); }
         .perm-toggle.ativo .perm-toggle-label { color: var(--text-primary); }
-        .perm-toggle-icon { font-size: 1rem; color: var(--text-muted); transition: color var(--transition); }
+        .perm-toggle-icon  { font-size: 1rem; color: var(--text-muted); transition: color var(--transition); }
         .perm-toggle-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--text-muted); transition: color var(--transition); }
         .perm-toggle.disabled { opacity: .4; cursor: not-allowed; pointer-events: none; }
 
-        /* ── Modal Novo/Editar Perfil ─────────────────────────────────────────── */
-        .modal-content {
-          border-radius: var(--radius-md);
-          border: 1px solid var(--border-light);
-        }
-        .modal-header { border-bottom: 1px solid var(--border-light); padding: 1.25rem 1.5rem; }
-        .modal-footer { border-top: 1px solid var(--border-light); padding: 1rem 1.5rem; gap: .5rem; }
-        .modal-body   { padding: 1.5rem; }
+        /* ── Modal base ────────────────────────────────────────────────────────── */
+        .modal-content { border-radius: var(--radius-md); border: 1px solid var(--border-light); }
+        .modal-header  { border-bottom: 1px solid var(--border-light); padding: 1.25rem 1.5rem; }
+        .modal-footer  { border-top: 1px solid var(--border-light); padding: 1rem 1.5rem; gap: .5rem; }
+        .modal-body    { padding: 1.5rem; }
 
-        /* ── Tags de permissão no modal ───────────────────────────────────────── */
+        /* ── Perm tag ──────────────────────────────────────────────────────────── */
         .perm-tag {
-          display: inline-flex;
-          align-items: center;
-          gap: .3rem;
-          font-size: .7rem;
-          font-weight: 600;
-          padding: .2rem .55rem;
+          display: inline-flex; align-items: center; gap: .3rem;
+          font-size: .7rem; font-weight: 600; padding: .2rem .55rem;
           border-radius: 20px;
-          background: rgba(0,255,194,.10);
-          color: var(--mint-dark);
-          border: 1px solid rgba(0,255,194,.2);
+          background: rgba(0,184,148,.10); color: var(--mint-dark);
+          border: 1px solid rgba(0,184,148,.2);
         }
 
-        /* ── Empty state geral ────────────────────────────────────────────────── */
-        .empty-state {
-          text-align: center;
-          padding: 3rem 1rem;
-          color: var(--text-muted);
-        }
+        /* ── Empty state ───────────────────────────────────────────────────────── */
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
         .empty-state i { font-size: 2.5rem; display: block; margin-bottom: .75rem; opacity: .35; }
         .empty-state p { font-size: .875rem; }
     </style>
@@ -199,117 +92,14 @@
 
 <div class="layout-wrapper">
 
-    <!-- ───────────────────── SIDEBAR ─────────────────────────────────────────── -->
-    <nav class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo"><i class="bi bi-grid-3x3-gap-fill"></i></div>
-            <div>
-                <div class="sidebar-title">Zylo ERP</div>
-                <div class="sidebar-subtitle">Software House Portal</div>
-            </div>
-        </div>
+    <!-- Sidebar — renderizada pelo componente JS -->
+    <nav class="sidebar" id="sidebar"></nav>
 
-        <div class="sidebar-nav">
-            <span class="nav-section-label">Principal</span>
-            <div class="nav-item">
-                <a href="../dashboard/home.html" class="nav-link" data-page="home.html">
-                    <span class="nav-icon"><i class="bi bi-house"></i></span>
-                    Dashboard
-                </a>
-            </div>
-
-            <span class="nav-section-label">Gestão</span>
-            <div class="nav-item">
-                <a href="../clientes/clientes-lista.html" class="nav-link" data-page="clientes-lista.html">
-                    <span class="nav-icon"><i class="bi bi-buildings"></i></span>
-                    Clientes
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="../contratos/contratos-lista.html" class="nav-link" data-page="contratos-lista.html">
-                    <span class="nav-icon"><i class="bi bi-file-earmark-text"></i></span>
-                    Contratos
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="../servicos/servicos-lista.html" class="nav-link" data-page="servicos-lista.html">
-                    <span class="nav-icon"><i class="bi bi-gear"></i></span>
-                    Serviços
-                </a>
-            </div>
-
-            <span class="nav-section-label">Operações</span>
-            <div class="nav-item">
-                <a href="../ordens-servico/os-kanban.html" class="nav-link" data-page="os-kanban.html">
-                    <span class="nav-icon"><i class="bi bi-kanban"></i></span>
-                    Ordens de Serviço
-                </a>
-            </div>
-
-            <span class="nav-section-label">Financeiro</span>
-            <div class="nav-item">
-                <a href="../faturamento/faturas-lista.html" class="nav-link" data-page="faturas-lista.html">
-                    <span class="nav-icon"><i class="bi bi-receipt"></i></span>
-                    Faturamento
-                </a>
-            </div>
-
-            <span class="nav-section-label">Administração</span>
-            <div class="nav-item">
-                <a href="../admin/usuarios-lista.html" class="nav-link" data-page="usuarios-lista.html">
-                    <span class="nav-icon"><i class="bi bi-people"></i></span>
-                    Usuários
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="perfis-lista.html" class="nav-link active" data-page="perfis-lista.html">
-                    <span class="nav-icon"><i class="bi bi-shield-lock"></i></span>
-                    Perfis e Permissões
-                </a>
-            </div>
-        </div>
-
-        <div class="sidebar-footer">
-            <div class="user-card">
-                <div class="user-avatar" data-user-iniciais>?</div>
-                <div class="user-info">
-                    <div class="user-name" data-user-nome>Carregando...</div>
-                    <div class="user-role" data-user-perfil></div>
-                </div>
-                <!-- --Logout -->
-                <span class="user-logout" data-action="logout" title="Sair">
-          <i class="bi bi-box-arrow-right"></i>
-        </span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ───────────────────── MAIN ─────────────────────────────────────────────── -->
+    <!-- ───────────────────── MAIN ───────────────────────────────────────────── -->
     <div class="main-content">
 
-        <!-- Topbar -->
-        <header class="topbar">
-            <!-- --Toggle sidebar mobile -->
-            <button class="topbar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
-
-            <div class="topbar-breadcrumb">
-                <h3>Perfis e Permissões</h3>
-                <span>Administração · Controle de Acesso</span>
-            </div>
-
-            <div class="topbar-actions">
-                <!-- --Notificações -->
-                <button class="topbar-icon-btn" title="Notificações">
-                    <i class="bi bi-bell"></i>
-                </button>
-                <!-- --Perfil do usuário -->
-                <div class="topbar-user">
-                    <div class="topbar-user-avatar" data-user-iniciais>?</div>
-                    <span class="topbar-user-name" data-user-nome>—</span>
-                    <i class="bi bi-chevron-down" style="font-size:.75rem; color:var(--text-muted);"></i>
-                </div>
-            </div>
-        </header>
+        <!-- Topbar — renderizada pelo componente JS -->
+        <header class="topbar" id="topbar"></header>
 
         <!-- Page content -->
         <main class="page-content">
@@ -369,7 +159,6 @@
                 <div class="col-lg-5 col-xl-4">
                     <div class="card-zylo" style="padding:0;">
 
-                        <!-- Header com busca e novo -->
                         <div style="padding:1.25rem 1.5rem; border-bottom:1px solid var(--border-light);">
                             <div class="section-header" style="margin-bottom:.875rem;">
                                 <div>
@@ -382,7 +171,6 @@
                                 </button>
                             </div>
 
-                            <!-- Filtro -->
                             <div class="d-flex gap-2">
                                 <div class="input-group flex-1">
                                     <span class="input-group-text"><i class="bi bi-search"></i></span>
@@ -396,9 +184,7 @@
                             </div>
                         </div>
 
-                        <!-- Lista -->
                         <div id="listaPerfis" style="padding:1rem; display:flex; flex-direction:column; gap:.625rem; max-height:calc(100vh - 380px); overflow-y:auto;">
-                            <!-- --Estado de carregamento -->
                             <div id="loadingPerfis" class="empty-state">
                                 <span class="spinner-border spinner-border-sm me-2"></span> Carregando perfis...
                             </div>
@@ -407,11 +193,10 @@
                     </div>
                 </div>
 
-                <!-- Coluna direita: painel de permissões do perfil selecionado -->
+                <!-- Coluna direita: painel de permissões -->
                 <div class="col-lg-7 col-xl-8">
                     <div class="perm-panel">
 
-                        <!-- --Header do painel de permissões -->
                         <div class="perm-panel-header">
                             <div>
                                 <div class="section-title" id="painelPerfilNome">Permissões do Perfil</div>
@@ -429,7 +214,6 @@
                             </div>
                         </div>
 
-                        <!-- --Body do painel -->
                         <div id="painelBody">
                             <div class="perm-panel-empty">
                                 <i class="bi bi-shield-slash"></i>
@@ -437,7 +221,6 @@
                             </div>
                         </div>
 
-                        <!-- --Alert do painel -->
                         <div id="alertPainel" style="padding:0 1.5rem;"></div>
 
                     </div>
@@ -449,11 +232,10 @@
     </div>
 </div>
 
-<!-- ───── MODAL: Novo / Editar Perfil ──────────────────────────────────────── -->
+<!-- ── MODAL: Novo / Editar Perfil ─────────────────────────────────────────── -->
 <div class="modal fade" id="modalPerfil" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width:500px;">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h5 class="modal-title" id="modalPerfilTitulo">
                     <i class="bi bi-shield-plus me-2" style="color:var(--mint-dark);"></i>
@@ -461,35 +243,31 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
             <div class="modal-body">
                 <form id="formPerfil" novalidate>
                     <input type="hidden" id="perfilId">
-
                     <div class="mb-3">
                         <label for="nomePerfil" class="form-label">
                             Nome do Perfil <span style="color:var(--accent-danger);">*</span>
                         </label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-shield"></i></span>
-                            <input type="text" id="nomePerfil" class="form-control" placeholder="Ex: Suporte Técnico" maxlength="50" required>
+                            <input type="text" id="nomePerfil" class="form-control"
+                                   placeholder="Ex: Suporte Técnico" maxlength="50" required>
                         </div>
                         <div style="font-size:.75rem; color:var(--text-muted); margin-top:.35rem;">
                             Mín. 3 · Máx. 50 caracteres
                         </div>
                     </div>
-
                     <div class="mb-3">
                         <label for="descricaoPerfil" class="form-label">Descrição</label>
                         <textarea id="descricaoPerfil" class="form-control" rows="3"
                                   placeholder="Descreva as responsabilidades deste perfil..."
                                   style="resize:none;"></textarea>
                     </div>
-
                     <div id="alertModal"></div>
                 </form>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <i class="bi bi-x-lg"></i> Cancelar
@@ -499,12 +277,11 @@
                     <i class="bi bi-floppy"></i> Salvar
                 </button>
             </div>
-
         </div>
     </div>
 </div>
 
-<!-- ───── MODAL: Confirmar Exclusão ────────────────────────────────────────── -->
+<!-- ── MODAL: Confirmar Exclusão ───────────────────────────────────────────── -->
 <div class="modal fade" id="modalExcluir" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width:440px;">
         <div class="modal-content">
@@ -530,9 +307,8 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <i class="bi bi-x-lg"></i> Cancelar
                 </button>
-                <button type="button" class="btn btn-sm"
-                        style="background:var(--accent-danger); border-color:var(--accent-danger); color:#fff; font-weight:700;"
-                        id="btnConfirmarExcluir">
+                <button type="button" class="btn btn-sm" id="btnConfirmarExcluir"
+                        style="background:var(--accent-danger); border-color:var(--accent-danger); color:#fff; font-weight:700;">
                     <i class="bi bi-trash3"></i> Excluir
                 </button>
             </div>
@@ -542,11 +318,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../js/core/auth.js"></script>
-<script src="../../js/core/main.js"></script>
+<script src="../../js/core/http.js"></script>
+<script src="../../js/core/utils.js"></script>
+<script src="../../js/core/router.js"></script>
+<script src="../../js/components/sidebar.js"></script>
+<script src="../../js/components/topbar.js"></script>
+<script src="../../js/api.js"></script>
 <script src="../../js/modules/perfis.js"></script>
 <script>
-    // --Proteger rota
-    ZyloAuth.requireAuth();
+    // --Proteger rota e renderizar layout
+    ZyloRouter.init();
+    ZyloSidebar.render('perfis-lista.html');
+    ZyloTopbar.render({ title: 'Perfis e Permissões', subtitle: 'Administração · Controle de Acesso' });
+
     // --Inicializar módulo
     ZyloPerfis.Events.init();
 </script>

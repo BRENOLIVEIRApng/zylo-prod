@@ -7,29 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/layout.css">
     <style>
-        /* ── Avatar grande ───────────────────────────────────────────────────── */
+        /* ── Avatar grande ─────────────────────────────────────────────────────── */
         .usuario-avatar-lg {
-          width: 72px; height: 72px;
-          border-radius: 50%;
-          background: var(--mint);
-          color: var(--text-on-mint);
+          width: 72px; height: 72px; border-radius: 50%;
+          background: var(--mint); color: var(--text-on-mint);
           font-weight: 700; font-size: 1.5rem;
           display: flex; align-items: center; justify-content: center;
-          flex-shrink: 0;
-          box-shadow: var(--shadow-mint);
+          flex-shrink: 0; box-shadow: var(--shadow-mint);
         }
-        .usuario-avatar-lg.inativo {
-          background: var(--border-light);
-          color: var(--text-muted);
-          box-shadow: none;
-        }
+        .usuario-avatar-lg.inativo { background: var(--border-light); color: var(--text-muted); box-shadow: none; }
 
-        /* ── Info grid ───────────────────────────────────────────────────────── */
+        /* ── Info grid ─────────────────────────────────────────────────────────── */
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
         @media (max-width: 576px) { .info-grid { grid-template-columns: 1fr; } }
-
-        .info-item {}
         .info-label {
           font-size: .72rem; font-weight: 700;
           text-transform: uppercase; letter-spacing: .5px;
@@ -41,55 +33,44 @@
         }
         .info-value i { font-size: .85rem; color: var(--mint-dark); }
 
-        /* ── Histórico timeline ──────────────────────────────────────────────── */
+        /* ── Histórico timeline ────────────────────────────────────────────────── */
         .historico-item {
           display: flex; align-items: flex-start; gap: .9rem;
-          padding: .75rem 0;
-          border-bottom: 1px solid var(--border-light);
+          padding: .75rem 0; border-bottom: 1px solid var(--border-light);
         }
         .historico-item:last-child { border-bottom: none; }
-
         .historico-icon {
           width: 34px; height: 34px; border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
           flex-shrink: 0; margin-top: .1rem;
         }
-        .historico-icon.sucesso  { background: rgba(0,229,160,.12); }
-        .historico-icon.sucesso i{ color: #00856A; }
-        .historico-icon.falha    { background: #FFF0F0; }
-        .historico-icon.falha i  { color: var(--accent-danger); }
-
-        .historico-corpo { flex: 1; min-width: 0; }
-        .historico-titulo {
-          font-size: .8375rem; font-weight: 600; color: var(--text-primary); line-height: 1.3;
-        }
-        .historico-meta {
-          font-size: .75rem; color: var(--text-muted); margin-top: .15rem;
-          display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
-        }
+        .historico-icon.sucesso   { background: rgba(0,229,160,.12); }
+        .historico-icon.sucesso i { color: #00856A; }
+        .historico-icon.falha     { background: #FFF0F0; }
+        .historico-icon.falha i   { color: var(--accent-danger); }
+        .historico-corpo  { flex: 1; min-width: 0; }
+        .historico-titulo { font-size: .8375rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+        .historico-meta   { font-size: .75rem; color: var(--text-muted); margin-top: .15rem; display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
         .historico-meta i { font-size: .72rem; }
-        .historico-motivo {
-          font-size: .75rem; color: var(--accent-danger);
-          margin-top: .2rem; display: flex; align-items: center; gap: .3rem;
-        }
+        .historico-motivo { font-size: .75rem; color: var(--accent-danger); margin-top: .2rem; display: flex; align-items: center; gap: .3rem; }
 
-        /* ── Perfil badge detalhe ────────────────────────────────────────────── */
+        /* ── Perfil badge detalhe ──────────────────────────────────────────────── */
         .perfil-badge-lg {
           display: inline-flex; align-items: center; gap: .4rem;
           font-size: .8rem; font-weight: 600; padding: .3rem .85rem;
           border-radius: 20px;
-          background: rgba(0,255,194,.10); color: var(--mint-dark);
-          border: 1px solid rgba(0,255,194,.2);
+          background: rgba(0,184,148,.10); color: var(--mint-dark);
+          border: 1px solid rgba(0,184,148,.2);
         }
         .perfil-badge-lg i { font-size: .8rem; }
 
-        /* ── Modal base ──────────────────────────────────────────────────────── */
+        /* ── Modal base ────────────────────────────────────────────────────────── */
         .modal-content { border-radius: var(--radius-md); border: 1px solid var(--border-light); }
         .modal-header  { border-bottom: 1px solid var(--border-light); padding: 1.25rem 1.5rem; }
         .modal-body    { padding: 1.5rem; }
         .modal-footer  { border-top: 1px solid var(--border-light); padding: 1rem 1.5rem; gap: .5rem; }
 
-        /* ── Senha strength ──────────────────────────────────────────────────── */
+        /* ── Senha strength ────────────────────────────────────────────────────── */
         .senha-strength { display: flex; gap: .25rem; margin-top: .35rem; }
         .senha-bar {
           height: 3px; flex: 1; border-radius: 4px;
@@ -100,118 +81,22 @@
         .senha-bar.forte  { background: var(--accent-success); }
         .senha-hint { font-size: .72rem; color: var(--text-muted); margin-top: .25rem; }
 
-        /* ── Alterar senha própria ────────────────────────────────────────────── */
-        .senha-section-divider {
-          position: relative; text-align: center;
-          margin: 1rem 0;
-        }
-        .senha-section-divider::before {
-          content: ''; position: absolute; top: 50%; left: 0; right: 0;
-          height: 1px; background: var(--border-light);
-        }
-        .senha-section-divider span {
-          position: relative; background: var(--bg-card);
-          padding: 0 .75rem; font-size: .75rem; color: var(--text-muted);
-        }
+        .senha-section-divider { position: relative; text-align: center; margin: 1rem 0; }
+        .senha-section-divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border-light); }
+        .senha-section-divider span { position: relative; background: var(--bg-card); padding: 0 .75rem; font-size: .75rem; color: var(--text-muted); }
     </style>
 </head>
 <body>
 <div class="layout-wrapper">
 
-    <!-- ─── SIDEBAR ──────────────────────────────────────────────────────────── -->
-    <nav class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo"><i class="bi bi-grid-3x3-gap-fill"></i></div>
-            <div>
-                <div class="sidebar-title">Zylo ERP</div>
-                <div class="sidebar-subtitle">Software House Portal</div>
-            </div>
-        </div>
-        <div class="sidebar-nav">
-            <span class="nav-section-label">Principal</span>
-            <div class="nav-item">
-                <a href="../dashboard/home.html" class="nav-link" data-page="home.html">
-                    <span class="nav-icon"><i class="bi bi-house"></i></span>Dashboard
-                </a>
-            </div>
-            <span class="nav-section-label">Gestão</span>
-            <div class="nav-item">
-                <a href="../clientes/clientes-lista.html" class="nav-link" data-page="clientes-lista.html">
-                    <span class="nav-icon"><i class="bi bi-buildings"></i></span>Clientes
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="../contratos/contratos-lista.html" class="nav-link" data-page="contratos-lista.html">
-                    <span class="nav-icon"><i class="bi bi-file-earmark-text"></i></span>Contratos
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="../servicos/servicos-lista.html" class="nav-link" data-page="servicos-lista.html">
-                    <span class="nav-icon"><i class="bi bi-gear"></i></span>Serviços
-                </a>
-            </div>
-            <span class="nav-section-label">Operações</span>
-            <div class="nav-item">
-                <a href="../ordens-servico/os-kanban.html" class="nav-link" data-page="os-kanban.html">
-                    <span class="nav-icon"><i class="bi bi-kanban"></i></span>Ordens de Serviço
-                </a>
-            </div>
-            <span class="nav-section-label">Financeiro</span>
-            <div class="nav-item">
-                <a href="../faturamento/faturas-lista.html" class="nav-link" data-page="faturas-lista.html">
-                    <span class="nav-icon"><i class="bi bi-receipt"></i></span>Faturamento
-                </a>
-            </div>
-            <span class="nav-section-label">Administração</span>
-            <div class="nav-item">
-                <a href="usuarios-lista.html" class="nav-link active" data-page="usuarios-lista.html">
-                    <span class="nav-icon"><i class="bi bi-people"></i></span>Usuários
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="perfis-lista.html" class="nav-link" data-page="perfis-lista.html">
-                    <span class="nav-icon"><i class="bi bi-shield-lock"></i></span>Perfis e Permissões
-                </a>
-            </div>
-        </div>
-        <div class="sidebar-footer">
-            <div class="user-card">
-                <div class="user-avatar" data-user-iniciais>?</div>
-                <div class="user-info">
-                    <div class="user-name" data-user-nome>Carregando...</div>
-                    <div class="user-role" data-user-perfil></div>
-                </div>
-                <span class="user-logout" data-action="logout" title="Sair">
-          <i class="bi bi-box-arrow-right"></i>
-        </span>
-            </div>
-        </div>
-    </nav>
+    <!-- Sidebar — renderizada pelo componente JS -->
+    <nav class="sidebar" id="sidebar"></nav>
 
     <!-- ─── MAIN ─────────────────────────────────────────────────────────────── -->
     <div class="main-content">
 
-        <header class="topbar">
-            <button class="topbar-toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
-            <div class="topbar-breadcrumb">
-                <h3 id="topbarNome">Detalhe do Usuário</h3>
-                <span>
-          <a href="usuarios-lista.html" style="color:var(--text-muted);font-size:.75rem;">
-            Usuários
-          </a>
-          <i class="bi bi-chevron-right" style="font-size:.6rem;color:var(--text-muted);margin:0 .3rem;"></i>
-          <span style="font-size:.75rem;" id="topbarSubNome">—</span>
-        </span>
-            </div>
-            <div class="topbar-actions">
-                <button class="topbar-icon-btn" title="Notificações"><i class="bi bi-bell"></i></button>
-                <div class="topbar-user">
-                    <div class="topbar-user-avatar" data-user-iniciais>?</div>
-                    <span class="topbar-user-name" data-user-nome>—</span>
-                    <i class="bi bi-chevron-down" style="font-size:.75rem;color:var(--text-muted);"></i>
-                </div>
-            </div>
-        </header>
+        <!-- Topbar — renderizada pelo componente JS -->
+        <header class="topbar" id="topbar"></header>
 
         <main class="page-content">
 
@@ -227,7 +112,6 @@
                 <div class="card-zylo mb-3">
                     <div class="d-flex align-items-start gap-3 flex-wrap">
 
-                        <!-- Avatar + status -->
                         <div style="position:relative;">
                             <div class="usuario-avatar-lg" id="detalheAvatar">?</div>
                             <span id="detalheStatusDot"
@@ -236,7 +120,6 @@
               </span>
                         </div>
 
-                        <!-- Info principal -->
                         <div style="flex:1; min-width:0;">
                             <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.4rem;">
                                 <h2 id="detalheNome" style="font-size:1.25rem;font-weight:700;letter-spacing:-.3px;margin:0;">—</h2>
@@ -248,7 +131,6 @@
                             <div><span class="perfil-badge-lg" id="detalhePerfil"><i class="bi bi-shield"></i> —</span></div>
                         </div>
 
-                        <!-- Ações rápidas -->
                         <div class="d-flex gap-2 flex-wrap" id="acoesDetalhe">
                             <!-- --Editar usuário -->
                             <button class="btn btn-primary btn-sm" id="btnEditarDetalhe">
@@ -273,7 +155,6 @@
                     <!-- Coluna esquerda: dados do usuário -->
                     <div class="col-lg-5">
 
-                        <!-- Informações cadastrais -->
                         <div class="card-zylo mb-3">
                             <div class="section-header">
                                 <div class="section-title">Informações</div>
@@ -305,10 +186,13 @@
                             </div>
                             <form id="formAlterarSenha" novalidate autocomplete="off">
                                 <div class="mb-3">
-                                    <label for="senhaAtual" class="form-label">Senha Atual <span style="color:var(--accent-danger);">*</span></label>
+                                    <label for="senhaAtual" class="form-label">
+                                        Senha Atual <span style="color:var(--accent-danger);">*</span>
+                                    </label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                        <input type="password" id="senhaAtual" class="form-control" placeholder="Sua senha atual" autocomplete="current-password">
+                                        <input type="password" id="senhaAtual" class="form-control"
+                                               placeholder="Sua senha atual" autocomplete="current-password">
                                         <button class="btn btn-outline-secondary" type="button" id="toggleSenhaAtual">
                                             <i class="bi bi-eye"></i>
                                         </button>
@@ -316,10 +200,13 @@
                                 </div>
                                 <div class="senha-section-divider"><span>Nova Senha</span></div>
                                 <div class="mb-3">
-                                    <label for="novaSenhaAlt" class="form-label">Nova Senha <span style="color:var(--accent-danger);">*</span></label>
+                                    <label for="novaSenhaAlt" class="form-label">
+                                        Nova Senha <span style="color:var(--accent-danger);">*</span>
+                                    </label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                                        <input type="password" id="novaSenhaAlt" class="form-control" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+                                        <input type="password" id="novaSenhaAlt" class="form-control"
+                                               placeholder="Mínimo 8 caracteres" autocomplete="new-password">
                                         <button class="btn btn-outline-secondary" type="button" id="toggleNovaSenhaAlt">
                                             <i class="bi bi-eye"></i>
                                         </button>
@@ -349,19 +236,17 @@
                                     <div class="section-title">Histórico de Acessos</div>
                                     <div class="section-subtitle">Últimos 10 acessos registrados</div>
                                 </div>
-                                <!-- --Badge total -->
+                                <!-- --Badge de falhas -->
                                 <span class="badge-status pendente" id="badgeFalhas" style="display:none;">
                   <i class="bi bi-exclamation-triangle"></i>
                   <span id="qtdFalhas">0</span> falha(s)
                 </span>
                             </div>
-
                             <div id="historicoContainer">
                                 <div style="text-align:center;padding:2.5rem 0;color:var(--text-muted);font-size:.85rem;">
                                     <span class="spinner-border spinner-border-sm me-2"></span>Carregando histórico...
                                 </div>
                             </div>
-
                             <div id="alertHistorico"></div>
                         </div>
                     </div>
@@ -389,21 +274,27 @@
                 <form id="formEditarDetalhe" novalidate autocomplete="off">
                     <input type="hidden" id="editarId">
                     <div class="mb-3">
-                        <label for="editarNome" class="form-label">Nome Completo <span style="color:var(--accent-danger);">*</span></label>
+                        <label for="editarNome" class="form-label">
+                            Nome Completo <span style="color:var(--accent-danger);">*</span>
+                        </label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-person"></i></span>
                             <input type="text" id="editarNome" class="form-control" maxlength="100" required>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="editarEmail" class="form-label">Email <span style="color:var(--accent-danger);">*</span></label>
+                        <label for="editarEmail" class="form-label">
+                            Email <span style="color:var(--accent-danger);">*</span>
+                        </label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                             <input type="email" id="editarEmail" class="form-control" required>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="editarPerfil" class="form-label">Perfil <span style="color:var(--accent-danger);">*</span></label>
+                        <label for="editarPerfil" class="form-label">
+                            Perfil <span style="color:var(--accent-danger);">*</span>
+                        </label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-shield"></i></span>
                             <select id="editarPerfil" class="form-select" required>
@@ -439,10 +330,13 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="novaSenhaDetReset" class="form-label">Nova Senha <span style="color:var(--accent-danger);">*</span></label>
+                    <label for="novaSenhaDetReset" class="form-label">
+                        Nova Senha <span style="color:var(--accent-danger);">*</span>
+                    </label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                        <input type="password" id="novaSenhaDetReset" class="form-control" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+                        <input type="password" id="novaSenhaDetReset" class="form-control"
+                               placeholder="Mínimo 8 caracteres" autocomplete="new-password">
                         <button class="btn btn-outline-secondary" type="button" id="toggleSenhaDetReset">
                             <i class="bi bi-eye"></i>
                         </button>
@@ -468,7 +362,7 @@
     </div>
 </div>
 
-<!-- ── MODAL: Confirmar Desativar (detalhe) ─────────────────────────────────── -->
+<!-- ── MODAL: Confirmar Desativar / Ativar (detalhe) ────────────────────────── -->
 <div class="modal fade" id="modalDesativarDetalhe" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width:440px;">
         <div class="modal-content">
@@ -500,11 +394,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../js/core/auth.js"></script>
-<script src="../../js/core/main.js"></script>
+<script src="../../js/core/http.js"></script>
+<script src="../../js/core/utils.js"></script>
+<script src="../../js/core/router.js"></script>
+<script src="../../js/components/sidebar.js"></script>
+<script src="../../js/components/topbar.js"></script>
+<script src="../../js/api.js"></script>
 <script src="../../js/modules/usuarios.js"></script>
 <script>
-    // --Proteger rota
-    ZyloAuth.requireAuth();
+    // --Proteger rota e renderizar layout
+    ZyloRouter.init();
+    ZyloSidebar.render('usuarios-detalhe.html');
+    ZyloTopbar.render({ title: 'Detalhe do Usuário', subtitle: 'Usuários · Informações e Histórico' });
+
     // --Inicializar página de detalhe
     ZyloUsuarios.Events.initDetalhe();
 </script>

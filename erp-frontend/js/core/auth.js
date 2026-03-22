@@ -1,5 +1,5 @@
 /* ─── Zylo ERP · auth.js ────────────────────────────────────────────────────
-   Gerencia autenticação, sessão e helpers de UI.
+   Gerencia autenticação
    Carregado em TODAS as páginas (public e protegidas).
 ────────────────────────────────────────────────────────────────────────────── */
 
@@ -103,79 +103,5 @@ const ZyloAuth = (() => {
     isLogado,
     solicitarResetSenha
   };
-
-})();
-
-/* ─── UI Helpers ─────────────────────────────────────────────────────────────
-   Reutilizável em qualquer página.
-────────────────────────────────────────────────────────────────────────────── */
-const ZyloUI = (() => {
-
-  const alertIcons = {
-    error:   'bi-exclamation-triangle-fill',
-    success: 'bi-check-circle-fill',
-    info:    'bi-info-circle-fill',
-    warning: 'bi-exclamation-circle-fill'
-  };
-
-  // ─── Alerta inline ────────────────────────────────────────────────────────
-  const showAlert = (containerId, mensagem, tipo = 'error') => {
-    const el = document.getElementById(containerId);
-    if (!el) return;
-    el.innerHTML = `
-      <div class="zylo-alert ${tipo}" role="alert">
-        <i class="bi ${alertIcons[tipo] || 'bi-info-circle-fill'}"></i>
-        <span>${mensagem}</span>
-      </div>`;
-  };
-
-  const clearAlert = (containerId) => {
-    const el = document.getElementById(containerId);
-    if (el) el.innerHTML = '';
-  };
-
-  // ─── Loading no botão ─────────────────────────────────────────────────────
-  const btnLoading = (btn, loading = true, texto = 'Aguarde...') => {
-    if (loading) {
-      btn.dataset.originalHtml = btn.innerHTML;
-      btn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ${texto}`;
-      btn.disabled = true;
-    } else {
-      btn.innerHTML = btn.dataset.originalHtml || btn.innerHTML;
-      btn.disabled = false;
-    }
-  };
-
-  // ─── Toggle senha ─────────────────────────────────────────────────────────
-  const toggleSenha = (inputId, btnId) => {
-    const input = document.getElementById(inputId);
-    const btn   = document.getElementById(btnId);
-    if (!input || !btn) return;
-    const visible = input.type === 'text';
-    input.type = visible ? 'password' : 'text';
-    const icon = btn.querySelector('i');
-    if (icon) icon.className = visible ? 'bi bi-eye' : 'bi bi-eye-slash';
-  };
-
-  // ─── Toast (notificação flutuante) ────────────────────────────────────────
-  const toast = (mensagem, tipo = 'success', duracao = 3500) => {
-    let container = document.getElementById('zylo-toast-container');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'zylo-toast-container';
-      container.style.cssText = 'position:fixed;top:1rem;right:1rem;z-index:9999;display:flex;flex-direction:column;gap:.5rem;';
-      document.body.appendChild(container);
-    }
-
-    const el = document.createElement('div');
-    el.className = `zylo-alert ${tipo}`;
-    el.style.cssText = 'min-width:260px;box-shadow:0 4px 12px rgba(0,0,0,.1);animation:fadeIn .2s ease;';
-    el.innerHTML = `<i class="bi ${alertIcons[tipo] || 'bi-info-circle-fill'}"></i><span>${mensagem}</span>`;
-    container.appendChild(el);
-
-    setTimeout(() => el.remove(), duracao);
-  };
-
-  return { showAlert, clearAlert, btnLoading, toggleSenha, toast };
 
 })();
